@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/homepage.css">
+  <link rel="stylesheet" type="text/css" href="js/bootstrap.min.js">
+  <link rel="stylesheet" type="text/css" href="js/jquery-3.1.1.js">
+   <script type="text/javascript" src="shuffle1js"></script>
+	<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	
+</head>
+<body style="*background-color:grey;" id="boy">
+<div class="container" style="max-width:900px; margin-top: 3%;border-radius: 20%;">
+	<div class="row">
+		
+		<div class="col-md-7">
+			<div class="panel panel-primary" style="border:4px ridge grey; border-radius: 2%;" >
+  <div class="panel-heading" style="padding: 3%;">
+  <table class="table table-responsive" style="border: none;">
+  	<tr>
+  		<td style="border:none;float: left;" colspan="2"> <em style="font-size: 30px;">shuffle1.0</em>&nbsp;<i style="font-size: 20px;color:orange"> Quickly arrange the colors.....</i></td>
+  		</tr>
+  		<tr>
+  		<td style="border:none;float:left"><input type="button" id="min"  class="btn-primary btn-lg" disabled="">&nbsp;
+  		<input type="button" id="sec"  class="btn-warning btn-lg" disabled=""></td>
+  		<td style="border:none;float:right;"><input type="button" value="prev" class="btn-danger btn-lg" onclick="prev()" > <input type="button" value="reset" class="btn-success btn-lg" onclick="reset()"  > </td>
+  	</tr>
+  </table>
+  </div>
+  <div class="panel-body">
+  <div>
+  	<input type="button" value="start" id="strt" class="btn-danger btn-lg" onclick="begin()">
+  		<em id="grades" style="font-size: 30px;color:green;float: right;" >
+  			Level 1</em>
+		<br><br>
+		<div>
+		<span class="input-group">
+		<span class="input-group-addon">
+			<span class="glyphicon glyphicon-tasks"></span>
+		</span>
+		<input type="text" placeholder="Scrambled Words" disabled="" class="form-control" id="text1">
+		</span>
+		
+		</div>
+		
+		<div id="back">
+			<br>
+		</div>
+		<div>
+		<span class="input-group">
+		<span class="input-group-addon">
+			<span class="glyphicon glyphicon-question-sign"></span>
+		</span>
+		<input type="text" placeholder="Type your answers" class="form-control" id="text2" onkeypress="enter(event)" disabled="" >
+		</span>
+			
+			<br>
+				<table class="table table-responsive" style="border: none;">
+					<tr>
+						<td style="border: none;">
+							<input type="button" value="submit" id="sub" class="btn-success btn-lg" onclick="final()" disabled="" >&nbsp;
+						</td>
+						<td style="border: none;">
+							<input type="text" disabled="" style="padding:20px; max-height:30px;max-width: 69px;border-radius: 10px;font-size: 20px;color: blue;" class="col-md-offset-6" id="digit"  >
+						</td>
+					</tr>
+				</table>			
+				
+				
+			
+		</div>
+		<br>
+		<div id="pagination">
+			<div class="row" style="border: none;">
+			<div class="col-md-12">
+				<div class="row" >
+				<div><span class="wells wells-lg" ><em id="sone" style="font-size: 15px;"></em></span></div>
+			</div>
+			</div>
+			</div>
+			<hr>
+			<div class="col-md-12 alert alert-success"  style="padding:4%;">
+					<div><em style="font-size: 20px;">Level Challenge:</em><span class="wells wells-lg" ><em id="fone" style="font-size: 15px;"></em></span></div>
+				</div>
+		</div>
+	</div>
+	</div>
+</div>
+		</div>
+		<div class="col-md-1">
+			
+		</div>
+		<div class="col-md-4" >
+			<div class="panel panel-primary" style="width:400px; max-width:300px; border-radius: 10px;">
+			<div class=" panel-heading" style="border-radius: 10px">
+			<a href="#data" data-toggle="collapse"><em style="font-size: 22px;color:white;padding: 6%;">Score Board</em></a>
+			</div>
+			<div id="data" class="panel-collapse collapse">
+			<div class="panel panel-body" >
+			<div id="leader">
+				
+			</div>
+			</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+  
+</div>
+<div id="myModal" class="modal fade" role="dialog" style="margin-top:20%;position:absolute;max-width:60%;margin-left: 27%;">
+  <div class="container modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" style="color:red;">YOU MADE IT!!!!!</h4>
+      </div>
+      <div class="modal-body">
+        <p style="color:green;">NEXT LEVEL!!!!.... </p>
+        <!--<input type="text" name="" class="form-control">-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script type="text/javascript">
+	
+var audio = new Audio('/Handclap4.mp3');
+var audio2 = new Audio('/Bepp-beep.mp3');
+var colors = ['yellow', 'orange', 'pink','blue', 'purple', 'indigo','violet','white','brown','black','teal','green','red','grey','cyan','wheat','silver']
+	 	document.getElementById('min').value = "01";
+		document.getElementById('sec').value = '00';
+		//document.getElementById('but').innerHTML = '<input type="button" value="submit" id="sub" class="btn-success btn-lg" onclick="final()" disabled="">' 
+		
+		//var words = Math.floor(Math.random() * colors.length)
+		 //d = colors[words];
+		 var count =0;
+		 var Highscore=[3];
+			var splc;
+		 var control;
+		 var lvl = 0;
+		 var grade = 1;
+		 //document.getElementById('digit').value='scores';
+		document.getElementById('fone').innerHTML=' <em style="color:red;">YOU</em> need to answer <em style="color:red;"> '+ Highscore +' '+ '</em>word(s) correctly <span ><em style="color:">to proceed...</em></span>'
+	function begin()
+	{		
+			document.getElementById('min').value = "01";
+			document.getElementById('sec').value = '00';
+			document.getElementById('digit').value='';
+			document.getElementById('strt').disabled = true;
+			document.getElementById('text2').disabled = false;
+			document.getElementById('sub').disabled = false;
+			document.getElementById('text2').focus();
+			count=0;
+			timer();
+			scrambled();
+		
+	}
+	function timer()
+	{
+		audio2.play();
+		if ( document.getElementById('min').value=='00' && document.getElementById('sec').value == '00' )
+		{	
+
+			alert('Game over')
+			condition();
+			document.getElementById('text2').disabled = true;
+			document.getElementById('strt').disabled = false;
+			document.getElementById('min').value = '--'
+			document.getElementById('sec').value = '--'
+			document.getElementById('sub').disabled = true;
+			document.getElementById('text1').value='';
+			document.getElementById('text2').value='';
+			document.getElementById('back').innerHTML = '<br>';
+			result();
+			//document.getElementById('strt').disabled = false;
+			control = false;
+			return;
+		}
+		else
+		{
+			document.getElementById('sec').value--
+		}
+					
+		if ( document.getElementById('sec').value==-1)
+		{	
+			document.getElementById('min').value--
+			document.getElementById('min').value ='0' + document.getElementById('min').value
+			document.getElementById('sec').value=22;	
+		}
+		
+		if ( document.getElementById('sec').value<10)
+		{
+			document.getElementById('sec').value= '0'+document.getElementById('sec').value;
+		}
+		var myvar = window.setTimeout("timer()",1000)
+	}
+function scrambled()
+{	
+		var words = Math.floor(Math.random() * colors.length)
+		 d = colors[words];
+		var newword='';
+		if (colors[words] != '')
+		{
+			var f = d.split('');
+			while( f.join('') != '')
+			{
+			var random = Math.floor(Math.random() * f.length)
+			newword += f[random]
+			f[random]=[];
+			}
+			//splc = colors.splice(words,1);
+		}
+		document.getElementById('text1').value = newword;
+		document.getElementById('back').innerHTML = '<input type="text"  style="border:none;padding:10%;background-color:'+d+'" class="form-control" disabled>'
+		//document.getElementById('back').innerHTML = '<span class="input-group"><span class="input-group-addon">	<span class="glyphicon glyphicon-question-sign"></span></span><input type="text"  style="background-color:'+d+'" class="form-control">'
+	
+}
+function final()
+{	
+	condition();
+		//var words = Math.floor(Math.random() * colors.length)
+		 //d = colors[words];
+		scrambled();
+		document.getElementById('text2').focus();
+
+}
+function enter(event)
+{
+	{
+	//alert('')
+	var x = event.which;
+	if( x== 13)
+	{
+		//alert('')
+		//alert('you pressed the escape key')
+		final();
+	}
+	else
+	{
+	//	alert('else')
+	}
+}
+}
+
+function condition()
+{
+	if(document.getElementById('text2').value.toLowerCase() == d.toLowerCase())
+	{
+		count+=1;
+		document.getElementById('digit').value=count;
+		document.getElementById('text2').value ='';
+		//splc = colors.splice(words,1);
+	}
+	else
+	{	
+		//scrambled.splc;
+		alert('The right answer is ' + d)
+		count=count;
+		document.getElementById('digit').value=count;
+		document.getElementById('text2').value ='';
+		//colors.push(splc);
+	}	
+
+}
+function result()
+{ 	
+	
+	//alert('this is ' + Highscore)
+	// Check browser support
+	if (typeof(Storage) !== "undefined") {
+		if (grade <= 1)
+		{
+			var x =prompt('what is your name')
+    localStorage.setItem("lastname", x);
+		}
+		else
+		{
+			localStorage.getItem("lastname", x);
+		}
+    // Store
+ 	
+   	
+   //	alert('this is ' + Highscore)
+   	Highscore.sort(function(a, b){return b-a});
+    //alert(Highscore[0])
+    //Highscore = Math.max(count,localStorage.getItem('Highscore'));
+    // Retrieve
+    
+    if (  count > Highscore[0] )
+    {	
+    	localStorage.setItem("Highscore", Highscore.push(count));
+    	celebration();
+    //	document.getElementById("sone").innerHTML =" <div class='col-md-12 alert-warning' style='padding:4%'><div><em style='font-size: 20px;'>Yourscore: SHUFFLE-KING </em><span ><em style='font-size: 18px;color:red;'>" +' '+ localStorage.getItem('lastname')+'</em> you answered <em style="color:red">'+ count +' </em>word(s) correctly you can begin the next level' + "</span></div></div>" ;
+    	// localStorage.setItem('scores', Highscore)
+    	//document.getElementById("fone").innerHTML = ' SHUFFLE-LORD:<em style="color:red">  ' + localStorage.getItem('lastname')+'</em> answered ' + count+ ' word(s) correctly'
+    	grade+=1;
+    	
+    		//document.getElementById("leader").innerHTML = ' SHUFFLE-LORD:<em style="color:red">  ' + localStorage.getItem('lastname')+'</em> got to level ' + grade + ' '
+    	//alert(localStorage.getItem('scores'))
+
+    	document.getElementById('grades').innerHTML='Level ' + grade;
+    	
+    	eraser();
+    /*	for(i = 0; i<Highscore.length;i++)
+    	{
+    		Highscore[i]=[]
+    		
+    	}*/
+    	//alert(colors)
+    	//colors = ['blue','purple']
+    	resetHighscore();
+    	levels();
+
+    }
+    else
+    {
+    	//document.getElementById("sone").innerHTML =" <div class='col-md-12 alert-warning' style='padding:4%'><div><em style='font-size: 20px;'>Yourscore: SHUFFLE-KING </em><span ><em style='font-size: 18px;color:red;'>" +' '+ localStorage.getItem('lastname')+'</em> you answered <em style="color:red">'+ count +' </em>word(s) correctly' + "</span></div></div>" ;
+    	alert(localStorage.getItem('lastname')+' try again!!!...and beat the level Challenge')
+    }
+	}
+	 else
+	  {
+    document.getElementById("sone").innerHTML = "Sorry, your browser does not support Web Storage...";
+	}
+}
+function celebration()
+{
+	/**document.getElementById('but').innerHTML ='<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>'**/
+	audio.play();
+	// $( "#myModal" ).effect( "bounce", "slow" );
+	var sss = $('#myModal').modal('show');
+	sss.slideToggle(1500)
+
+	$('#boy').keydown(function (event)
+{	
+	if(	event.which == 13){
+		$('#myModal').modal('hide');
+		}
+	})
+	//sss.effect('bounce','slow')
+}
+function levels()
+{
+	lvl +=10;
+	switch(lvl)
+	{
+		case 0:
+		colors = ['yellow', 'orange', 'pink','blue', 'purple', 'indigo','violet','white','brown','black','teal','green','red','grey','cyan','wheat','silver']
+		Highscore=[3]
+		document.getElementById('fone').innerHTML=' <em style="color:red;">YOU</em> need to answer <em style="color:red;"> '+ Highscore +' '+ '</em>word(s) correctly <span ><em style="color:">to proceed...</em></span>'
+		break;
+		case 10:
+		colors = ['AliceBlue','AntiqueWhite','Aqua','Aquamarine','Azure','Beige','Bisque','BlanchedAlmond',
+		'BlueViolet','BurlyWood','CadetBlue','Chartreuse','Chocolate','Coral' ]
+		Highscore=[2]
+		document.getElementById('fone').innerHTML='<em style="color:red;font-size:20px">'+ ' '+ localStorage.getItem('lastname') + '</em> answer <em style="color:red;"> '+ Highscore +' '+ '</em>word(s) correctly <span ><em style="color:">to proceed...</em></span>'
+		break;
+		case 20:
+		colors = [ 'CornflowerBlue','Cornsilk','Crimson','DarkBlue','DarkCyan','DarkGoldenRod','DarkGray','DarkGrey','DarkGreen','DarkKhaki','DarkMagenta','DarkOliveGreen','DarkOrange','DarkOrchid']
+		Highscore=[2]
+		document.getElementById('fone').innerHTML='<em style="color:red;font-size:20px">'+ ' '+ localStorage.getItem('lastname') + '</em> answer <em style="color:red;"> '+ Highscore +' '+ '</em>word(s) correctly <span ><em style="color:">to proceed...</em></span>'
+		break;
+		case 30:
+		colors = ['DarkRed','DarkSalmon','DarkSeaGreen','DarkSlateBlue','DarkSlateGray','DarkSlateGrey','DarkTurquoise','DarkViolet','DeepPink','DeepSkyBlue','DimGray','DimGrey','DodgerBlue','FireBrick']
+		Highscore=[2]
+		document.getElementById('fone').innerHTML='<em style="color:red;font-size:20px">'+ ' '+ localStorage.getItem('lastname') + '</em> answer <em style="color:red;"> '+ Highscore +' '+ '</em>word(s) correctly <span ><em style="color:">to proceed...</em></span>'
+		break;
+		case 40:
+		colors = ['FloralWhite', 'ForestGreen','Fuchsia','Gainsboro','GhostWhite','GoldenRod','GreenYellow','HoneyDew','Gold','HotPink','IndianRed','Ivory','Khaki','Lavender']
+		Highscore=[2]
+		document.getElementById('fone').innerHTML='<em style="color:red;font-size:20px">'+ ' '+ localStorage.getItem('lastname') + '</em> answer <em style="color:red;"> '+ Highscore +' '+ '</em>word(s) correctly <span ><em style="color:">to proceed...</em></span>'
+		break;
+		case 50:
+		colors = ['LavenderBlush','LawnGreen','LemonChiffon','LightBlue','LightCoral','LightCyan','LightGoldenRodYellow','LightGray','LightGrey','LightGreen' ,'LightPink','LightSalmon','LightSeaGreen','LightSkyBlue']
+		Highscore=[2]
+		document.getElementById('fone').innerHTML='<em style="color:red;font-size:20px">'+ ' '+ localStorage.getItem('lastname') + '</em> answer <em style="color:red;"> '+ Highscore +' '+ '</em>word(s) correctly <span ><em style="color:">to proceed...</em></span>'
+		break;
+		case 60:
+		colors = ['LightSlateGray','LightSlateGrey','LightSteelBlue','LightYellow','LimeGreen','Lime','Linen','Magenta','Maroon','MediumAquaMarine','MediumBlue','MediumOrchid','MediumPurple','MediumSeaGreen']
+		Highscore=[2]
+		document.getElementById('fone').innerHTML='<em style="color:red;font-size:20px">'+ ' '+ localStorage.getItem('lastname') + '</em> answer <em style="color:red;"> '+ Highscore +' '+ '</em>word(s) correctly <span ><em style="color:">to proceed...</em></span>'
+		break;
+		case 70:
+		colors = ['MediumSlateBlue', 'MediumSpringGreen','MediumTurquoise','MediumVioletRed','MidnightBlue','MintCream','MistyRose','Moccasin','NavajoWhite','Navy','OldLace','Olive','OliveDrab','OrangeRed']
+		Highscore=[2]
+		document.getElementById('fone').innerHTML='<em style="color:red;font-size:20px">'+ ' '+ localStorage.getItem('lastname') + '</em> answer <em style="color:red;"> '+ Highscore +' '+ '</em>word(s) correctly <span ><em style="color:">to proceed...</em></span>'
+		break;
+		case 80:
+		colors = ['Orchid','PaleGoldenRod','PaleGreen','PaleTurquoise','PaleVioletRed','PapayaWhip','PeachPuff','Plum','PowderBlue','RebeccaPurple','RosyBrown','RoyalBlue','SaddleBrown','Salmon']
+		Highscore=[2]
+		document.getElementById('fone').innerHTML='<em style="color:red;font-size:20px">'+ ' '+ localStorage.getItem('lastname') + '</em> answer <em style="color:red;"> '+ Highscore +' '+ '</em>word(s) correctly <span ><em style="color:">to proceed...</em></span>'
+		break;
+	}
+}
+function reset()
+{	
+	//window.clearTimeout(myvar)
+	//control=false;
+	document.getElementById('min').value = '00'
+	document.getElementById('sec').value = '00'
+	//timer();
+	
+	audio2.pause();
+	eraser();
+	resetHighscore();
+	Highscore=[]
+	grade=1;
+	lvl=-10;
+	levels();
+	document.getElementById('grades').innerHTML='Level ' + grade;
+	
+}
+function eraser()
+{
+		for(i = 0; i<colors.length;i++)
+    	{
+    		colors[i]=[]
+    		
+    	}
+}
+function resetHighscore()
+{
+	for(i = 0; i<Highscore.length;i++)
+    	{
+    		Highscore[i]=[]
+    		
+    	}
+}
+function prev()
+{
+	document.getElementById('min').value = '00'
+	document.getElementById('sec').value = '00'
+	//timer();
+	
+	audio2.pause();
+	eraser();
+	resetHighscore();
+	Highscore=[]
+	grade=grade-1;
+	lvl=lvl-20;
+	if (grade <=1) 
+	{
+		grade=1;
+	}
+	if(lvl <= -10)
+	{
+		lvl= -10;
+	}
+	
+	levels();
+	document.getElementById('grades').innerHTML='Level ' + grade;
+}
+
+</script>
+</body>
+</html>
